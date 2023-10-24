@@ -13,10 +13,7 @@ app.use('*', cors());
 // Routes
 app.get('/', (c: Context) => {
   // For default route, redirect to github repo
-  return c.json({
-    ok: true,
-    message: 'Welcome to the API of The Office',
-  });
+  return c.redirect("https://github.com/alexraskin/the-office-api")
 });
 
 // Quotes routes
