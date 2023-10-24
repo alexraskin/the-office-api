@@ -1,35 +1,10 @@
-<!-- PROJECT LOGO -->
-<br />
-<p align="center">
-  <a href="https://github.com/AkashRajpurohit/the-office-api">
-    <img src="https://media.tenor.com/sZ8zYU7hT1wAAAAM/dance-party.gif" alt="Micheal is happy" width="150" height="150">
-  </a>
+# The Office API
 
-  <h3 align="center">The Office API</h3>
-
-  <p align="center">
-    <samp>A free restful API serving quotes from "The Office U.S." series.</samp>
-    <br />
-    <a href="https://akashrajpurohit.github.io/the-office-api/"><strong>Explore the api »</strong></a>
-    <br />
-    <br />
-    <a href="/CONTRIBUTING.md">Contributing</a>
-    ·
-    <a href="https://github.com/AkashRajpurohit/the-office-quotes-api/issues/new?template=bug_report.md">Bug report</a>
-    ·
-    <a href="https://github.com/AkashRajpurohit/the-office-quotes-api/issues/new?template=feature_request.md">Feature request</a>
-  </p>
-</p>
-
-<br/>
-
-# API Contract 🫱🏻‍🫲🏼
-
-Base URL - [https://officeapi.akashrajpurohit.com](https://officeapi.akashrajpurohit.com)
+Base URL - [https://theoffice.twizy.sh/](https://theoffice.twizy.sh/)
 
 ## Get random Quote
 
-Request Path - [/quote/random](https://officeapi.akashrajpurohit.com/quote/random)
+Request Path - [/quote/random](https://theoffice.twizy.sh/quote/random)
 
 Response -
 
@@ -44,7 +19,7 @@ Response -
 
 ## Get Quote by ID
 
-Request Path - [/quote/:id](https://officeapi.akashrajpurohit.com/quote/156)
+Request Path - [/quote/:id](https://theoffice.twizy.sh/quote/156)
 
 Response -
 
@@ -59,7 +34,7 @@ Response -
 
 ## Get Season by ID
 
-Request Path - [/season/:id](https://officeapi.akashrajpurohit.com/season/1)
+Request Path - [/season/:id](https://theoffice.twizy.sh/season/1)
 
 Response -
 
@@ -136,7 +111,7 @@ Response -
 
 ## Get Episode by ID
 
-Request Path - [/season/:id/episode/:id](https://officeapi.akashrajpurohit.com/season/1/episode/1)
+Request Path - [/season/:id/episode/:id](https://theoffice.twizy.sh/season/1/episode/1)
 
 Response -
 
@@ -154,22 +129,10 @@ Response -
 }
 ```
 
-# Technology Stack 💻
+## Running the API locally
 
-- Framework - [Hono](https://honojs.dev/)
-- Deployment - [Cloudflare Workers](https://workers.cloudflare.com/)
+```bash
+npm install
 
-# Bugs or Requests 🐛
-
-If you encounter any problems feel free to open an [issue](https://github.com/AkashRajpurohit/the-office-quotes-api/issues/new?template=bug_report.md). If you feel the project is missing a feature, please raise a [ticket](https://github.com/AkashRajpurohit/the-office-quotes-api/issues/new?template=feature_request.md) on GitHub and I'll look into it. Pull requests are also welcome.
-
-# Contributions 🤝
-
-Please check the [guide](/CONTRIBUTING.md) to learn more about contributing to this project
-
-# Where to find me? 👀
-
-- [Website](https://akashrajpurohit.com/)
-- [Linkedin](https://www.linkedin.com/in/AkashRajpurohit)
-- [Instagram](https://www.instagram.com/akashwho.codes)
-- [Twitter](https://www.twitter.com/akashwhocodes)
+wrangler dev
+```

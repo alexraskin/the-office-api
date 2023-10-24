@@ -3,5 +3,8 @@ main = "src/index.ts"
 compatibility_date = "2022-11-12"
 
 routes = [
-	{ pattern = "theoffice.konikotaka.dev", custom_domain = true }
+	{ pattern = "theoffice.konikotaka.dev", custom_domain = true },
+  { pattern = "theoffice.konikotaka.dev/*", zone_name = "konikotaka.dev"},
+  { pattern = "theoffice.twizy.sh", custom_domain = true },
+  { pattern = "theoffice.twizy.sh/*", zone_name = "twizy.sh"}
 ]
