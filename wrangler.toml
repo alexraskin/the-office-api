@@ -1,3 +1,7 @@
 name = "officeapi"
 main = "src/index.ts"
 compatibility_date = "2022-11-12"
+
+routes = [
+	{ pattern = "theoffice.konikotaka.dev", custom_domain = true }
+]

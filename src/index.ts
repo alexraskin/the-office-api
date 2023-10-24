@@ -1,31 +1,31 @@
-import { Hono } from 'hono';
+import { Hono, Context } from 'hono';
 import { prettyJSON } from 'hono/pretty-json';
 import { cors } from 'hono/cors';
 import quotes from '../data/quotes.json';
 import episodes from '../data/episodes.json';
 
-const app = new Hono();
+const app: Hono = new Hono();
 
 // Middlewares
 app.use('*', prettyJSON());
 app.use('*', cors());
 
 // Routes
-app.get('/', (c) => {
+app.get('/', (c: Context) => {
   // For default route, redirect to github repo
-  return c.redirect(
-    'https://github.com/AkashRajpurohit/the-office-api#api-contract-',
-    302
-  );
+  return c.json({
+    ok: true,
+    message: 'Welcome to the API of The Office',
+  });
 });
 
 // Quotes routes
-app.get('/quote/random', (c) => {
+app.get('/quote/random', (c: Context) => {
   const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
   return c.json(randomQuote);
 });
 
-app.get('/quote/:id', (c) => {
+app.get('/quote/:id', (c: Context) => {
   const id = Number(c.req.param('id'));
 
   if (Number.isNaN(id)) {
@@ -54,7 +54,7 @@ app.get('/quote/:id', (c) => {
 });
 
 // Seasons & Episodes routes
-app.get('/season/:id', (c) => {
+app.get('/season/:id', (c: Context) => {
   const id = Number(c.req.param('id'));
 
   if (Number.isNaN(id)) {
@@ -82,7 +82,7 @@ app.get('/season/:id', (c) => {
   return c.json(seasonData);
 });
 
-app.get('/season/:season_id/episode/:episode_id', (c) => {
+app.get('/season/:season_id/episode/:episode_id', (c: Context) => {
   const seasonId = Number(c.req.param('season_id'));
   const episodeId = Number(c.req.param('episode_id'));
 
