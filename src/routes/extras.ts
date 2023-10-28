@@ -13,7 +13,8 @@ extrasRouter.get('/extras', async (c: Context) => {
 
   const db = drizzle(c.env.DB);
 
-  const extras = db.select().from(schema.extras);
+  const extras = await db.select().from(schema.extras);
+  console.log(extras);
 
   return c.json(extras);
 });

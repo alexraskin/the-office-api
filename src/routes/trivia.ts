@@ -9,16 +9,16 @@ import { token } from '../constants'
 
 export const triviaRouter = new Hono<{ Bindings: Bindings }>();
 
-triviaRouter.get('trivia', (c: Context) => {
+triviaRouter.get('trivia', async (c: Context) => {
 
   const db = drizzle(c.env.DB);
 
-  const trivia = db.select().from(schema.trivia);
+  const trivia = await db.select().from(schema.trivia);
 
   return c.json(trivia);
 });
 
-triviaRouter.get('trivia/:id', (c: Context) => {
+triviaRouter.get('trivia/:id', async (c: Context) => {
   const id = Number(c.req.param('id'));
 
   if (Number.isNaN(id)) {
@@ -33,7 +33,7 @@ triviaRouter.get('trivia/:id', (c: Context) => {
 
   const db = drizzle(c.env.DB);
 
-  const triviaQuestion = db.select().from(schema.trivia).where(eq(schema.trivia.id, id));
+  const triviaQuestion = await db.select().from(schema.trivia).where(eq(schema.trivia.id, id));
 
   if (!triviaQuestion) {
     return c.json(
