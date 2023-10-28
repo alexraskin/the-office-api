@@ -1,10 +1,10 @@
 # The Office API
 
-Base URL - [https://theoffice.twizy.sh/](https://theoffice.twizy.sh/)
+Base URL - [https://theoffice.foo/](https://theoffice.foo/)
 
 ## Get random Quote
 
-Request Path - [/quote/random](https://theoffice.twizy.sh/quote/random)
+Request Path - [/quote/random](https://theoffice.foo/quote/random)
 
 Response -
 
@@ -19,7 +19,7 @@ Response -
 
 ## Get Quote by ID
 
-Request Path - [/quote/:id](https://theoffice.twizy.sh/quote/156)
+Request Path - [/quote/:id](https://theoffice.foo/quote/156)
 
 Response -
 
@@ -34,7 +34,7 @@ Response -
 
 ## Get Season by ID
 
-Request Path - [/season/:id](https://theoffice.twizy.sh/season/1)
+Request Path - [/season/:id](https://theoffice.foo/season/1)
 
 Response -
 
@@ -111,7 +111,7 @@ Response -
 
 ## Get Episode by ID
 
-Request Path - [/season/:id/episode/:id](https://theoffice.twizy.sh/season/1/episode/1)
+Request Path - [/season/:id/episode/:id](https://theoffice.foo/season/1/episode/1)
 
 Response -
 

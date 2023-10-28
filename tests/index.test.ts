@@ -1,5 +1,5 @@
 import app from '../src/index';
-import { IErrorResponse, IOfficeEpisodes, IOfficeQuote } from '../types';
+import { IErrorResponse, IOfficeEpisodes, IOfficeQuote, IOfficeExtras, IOfficeTriva } from '../src/types';
 
 describe('Basic routes', () => {
   it('should redirect to github URL for index route', async () => {
@@ -80,6 +80,7 @@ describe('Seasons and Episodes routes', () => {
         totalVotes: 7006,
         directedBy: 'Ken Kwapis',
         writtenBy: 'Ricky Gervais & Stephen Merchant and Greg Daniels',
+        episode_clip_url: "https://cdn.theoffice.foo/s1-ep1.mp4"
       },
       {
         season: 1,
@@ -92,6 +93,7 @@ describe('Seasons and Episodes routes', () => {
         totalVotes: 6902,
         directedBy: 'Ken Kwapis',
         writtenBy: 'B. J. Novak',
+        episode_clip_url: "https://cdn.theoffice.foo/s1-ep2.mp4"
       },
       {
         season: 1,
@@ -104,6 +106,7 @@ describe('Seasons and Episodes routes', () => {
         totalVotes: 5756,
         directedBy: 'Ken Whittingham',
         writtenBy: 'Paul Lieberstein',
+        episode_clip_url: "https://cdn.theoffice.foo/s1-ep3.mp4"
       },
       {
         season: 1,
@@ -116,6 +119,7 @@ describe('Seasons and Episodes routes', () => {
         totalVotes: 5579,
         directedBy: 'Bryan Gordon',
         writtenBy: 'Michael Schur',
+        episode_clip_url: "https://cdn.theoffice.foo/s1-ep4.mp4"
       },
       {
         season: 1,
@@ -128,6 +132,7 @@ describe('Seasons and Episodes routes', () => {
         totalVotes: 6183,
         directedBy: 'Greg Daniels',
         writtenBy: 'Greg Daniels',
+        episode_clip_url: "https://cdn.theoffice.foo/s1-ep5.mp4"
       },
       {
         season: 1,
@@ -140,6 +145,7 @@ describe('Seasons and Episodes routes', () => {
         totalVotes: 5495,
         directedBy: 'Amy Heckerling',
         writtenBy: 'Mindy Kaling',
+        episode_clip_url: "https://cdn.theoffice.foo/s1-ep6.mp4"
       },
     ]);
   });
@@ -185,6 +191,7 @@ describe('Seasons and Episodes routes', () => {
       totalVotes: 7006,
       directedBy: 'Ken Kwapis',
       writtenBy: 'Ricky Gervais & Stephen Merchant and Greg Daniels',
+      episode_clip_url: "https://cdn.theoffice.foo/s1-ep1.mp4"
     });
   });
 
@@ -210,5 +217,64 @@ describe('Seasons and Episodes routes', () => {
       ok: false,
       message: 'No episode found for this season id and episode id',
     });
+  });
+});
+
+describe('Extras routes', () => {
+  it('should return all extras', async () => {
+    const res = await app.request('http://localhost/extras');
+    const body = await res.json<IOfficeExtras>();
+
+    expect(res.status).toBe(200);
+    expect(res.headers.get('Content-Type')).toContain('application/json');
+    expect(body).toEqual([
+      {
+        "id": 1,
+        "name": "Threat Level Midnight",
+        "description": "After secret agent Michael Scarn (played by Scott) is forced into retirement due to the death of his wife Catherine Zeta-Scarn, the President of the United States of America (played by Darryl Philbin) requests that he prevent Goldenface (played by Jim Halpert) from blowing up the NHL All-Star Game and killing several hostages. Scarn goes undercover and learns how to play hockey, killing another hockey player (played by Oscar Martinez) to make it into the game, but after confronting Goldenface, he is shot. He later recuperates but learns that the President was in on it all along. Depressed, he goes to a bar to drown his sorrows. The patrons of the bar sing a song called 'The Scarn' which he danced to with his wife, which cheers Scarn up immensely. With his courage restored, Scarn is able to save the day and blow up Goldenface in the process.",
+        "photo_url": "https://cdn.theoffice.foo/Threat-Level-Midnight.jpg",
+        "video_url": "https://cdn.theoffice.foo/Threat-Level-Midnight-Movie.mp4"
+      },
+      {
+        "id": 2,
+        "name": "The Matrix",
+        "description": "An extended cold open where Jim pulls one last prank on Dwight by trying to convince him he is in 'the Matrix', including creating fake 'glitches' such as training a cat to run by his door twice as well as using Glenn's twin brother Ben. Dwight meets up with Hank in the warehouse, who claims to be Morpheus's brother 'Dorpheus' and offers Dwight the red pill, which will allow him to join his army, or the blue pill, which will make him forget. Surprisingly, Dwight chooses the blue pill: He is the manager, he owns the building, he has a nice farm, and he's getting married to Angela, and he does not want to throw that away. Watching over a security camera, Pam finds this cute, while Jim is horrified as he hired thirty people to participate in the prank. Hank calls out that someone should intervene if the blue pill is not actually safe to eat, prompting Jim to run off. Dwight, wise that this is a prank, sarcastically asks if Hank is calling for Deo or Drinity.",
+        "photo_url": "https://cdn.theoffice.foo/the-matrix.jpeg",
+        "video_url": "https://cdn.theoffice.foo/The-Matrix.mp4"
+      }
+    ]);
+  });
+  it('should return a extra for a valid id', async () => {
+    const res = await app.request('http://localhost/extras/1');
+    const body = await res.json<IOfficeExtras>();
+
+    expect(res.status).toBe(200);
+    expect(res.headers.get('Content-Type')).toContain('application/json');
+    expect(body).toEqual({
+      "id": 1,
+      "name": "Threat Level Midnight",
+      "description": "After secret agent Michael Scarn (played by Scott) is forced into retirement due to the death of his wife Catherine Zeta-Scarn, the President of the United States of America (played by Darryl Philbin) requests that he prevent Goldenface (played by Jim Halpert) from blowing up the NHL All-Star Game and killing several hostages. Scarn goes undercover and learns how to play hockey, killing another hockey player (played by Oscar Martinez) to make it into the game, but after confronting Goldenface, he is shot. He later recuperates but learns that the President was in on it all along. Depressed, he goes to a bar to drown his sorrows. The patrons of the bar sing a song called 'The Scarn' which he danced to with his wife, which cheers Scarn up immensely. With his courage restored, Scarn is able to save the day and blow up Goldenface in the process.",
+      "photo_url": "https://cdn.theoffice.foo/Threat-Level-Midnight.jpg",
+      "video_url": "https://cdn.theoffice.foo/Threat-Level-Midnight-Movie.mp4"
+    });
+  });
+});
+
+describe('Trivia routes', () => {
+  it('should return all trivia', async () => {
+    const res = await app.request('http://localhost/trivia');
+    const body = await res.json<IOfficeTriva>();
+
+    expect(res.status).toBe(200);
+    expect(res.headers.get('Content-Type')).toContain('application/json');
+    expect(body).not.toBe('');
+  });
+  it('should return a trivia for a valid id', async () => {
+    const res = await app.request('http://localhost/trivia/1');
+    const body = await res.json<IOfficeTriva>();
+
+    expect(res.status).toBe(200);
+    expect(res.headers.get('Content-Type')).toContain('application/json');
+    expect(body).not.toBe('');
   });
 });

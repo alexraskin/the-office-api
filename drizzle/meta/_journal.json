@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1698462679280,
+      "tag": "0000_worthless_talkback",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1698468700262,
+      "tag": "0001_mushy_liz_osborn",
+      "breakpoints": true
+    }
+  ]
+}
