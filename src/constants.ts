@@ -1,1 +1,1 @@
-export const token: string = ""
+export const token: string = "12344"

@@ -173,3 +173,4 @@ dist
 .coverage
 wrangler.toml
 .wrangler/
+.DS_Store

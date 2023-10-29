@@ -1,4 +1,5 @@
 import { Hono, Context } from 'hono';
+import { serveStatic } from 'hono/cloudflare-workers'
 import { prettyJSON } from 'hono/pretty-json';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger'
@@ -8,7 +9,6 @@ import { quoteRouter } from './routes/quotes';
 import { triviaRouter } from './routes/trivia';
 import { extrasRouter } from './routes/extras';
 import { seasonRouter } from './routes/seasons';
-
 
 const app = new Hono<{ Bindings: Bindings }>();
 
@@ -21,10 +21,9 @@ app.route("/", triviaRouter)
 app.route("/", extrasRouter)
 app.route("/", seasonRouter)
 
+app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 
-app.get('/', (c: Context) => {
-  return c.redirect("https://github.com/alexraskin/the-office-api")
-});
+app.use('/', serveStatic({ path: './' }));
 
 app.notFound((c) => c.json({ ok: false, message: 'Not Found' }, 404));
 
