@@ -1,13 +1,10 @@
 import { Hono, Context } from 'hono';
 import { drizzle } from 'drizzle-orm/d1';
-import { eq } from "drizzle-orm";
+import { eq } from 'drizzle-orm';
 import * as schema from '../db/schema';
 import { Bindings } from '../types';
-import { bearerAuth } from 'hono/bearer-auth'
 
-import { token } from '../constants'
-
-export const quoteRouter = new Hono<{ Bindings: Bindings }>(); 
+export const quoteRouter = new Hono<{ Bindings: Bindings }>();
 
 // Quotes routes
 quoteRouter.get('quote/random', async (c: Context) => {
@@ -41,7 +38,10 @@ quoteRouter.get('quote/:id', async (c: Context) => {
   }
 
   const db = drizzle(c.env.DB);
-  const quote = await db.select().from(schema.quotes).where(eq(schema.quotes.id, id));
+  const quote = await db
+    .select()
+    .from(schema.quotes)
+    .where(eq(schema.quotes.id, id));
 
   if (!quote) {
     return c.json(
@@ -55,16 +55,27 @@ quoteRouter.get('quote/:id', async (c: Context) => {
   return c.json(quote);
 });
 
-
-quoteRouter.post('quote', bearerAuth({ token }),  async (c: Context) => {
+quoteRouter.post('quote', async (c: Context) => {
   const new_quote = await c.req.json();
+
+  const token: string = c.req.headers.get('X-API-KEY') || '';
+
+  if (!token !== c.env.TOKEN) {
+    return c.json(
+      {
+        ok: false,
+        message: 'Invalid token',
+      },
+      401
+    );
+  }
 
   const db = drizzle(c.env.DB);
   const db_insert = await db.insert(schema.quotes).values({
     quote: new_quote.quote,
     character: new_quote.character,
     character_avatar_url: new_quote.character_avatar_url,
-  })
+  });
   if (db_insert) {
     return c.json(
       {

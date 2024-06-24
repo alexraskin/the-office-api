@@ -1,16 +1,12 @@
 import { Hono, Context } from 'hono';
-import { bearerAuth } from 'hono/bearer-auth'
 import { drizzle } from 'drizzle-orm/d1';
-import { eq } from "drizzle-orm";
+import { eq } from 'drizzle-orm';
 import * as schema from '../db/schema';
 import { Bindings } from '../types';
-
-import { token } from '../constants'
 
 export const triviaRouter = new Hono<{ Bindings: Bindings }>();
 
 triviaRouter.get('trivia', async (c: Context) => {
-
   const db = drizzle(c.env.DB);
 
   const trivia = await db.select().from(schema.trivia);
@@ -33,7 +29,10 @@ triviaRouter.get('trivia/:id', async (c: Context) => {
 
   const db = drizzle(c.env.DB);
 
-  const triviaQuestion = await db.select().from(schema.trivia).where(eq(schema.trivia.id, id));
+  const triviaQuestion = await db
+    .select()
+    .from(schema.trivia)
+    .where(eq(schema.trivia.id, id));
 
   if (!triviaQuestion) {
     return c.json(
@@ -48,14 +47,26 @@ triviaRouter.get('trivia/:id', async (c: Context) => {
   return c.json(triviaQuestion);
 });
 
-triviaRouter.post('trivia', bearerAuth({ token }), async (c: Context) => {
+triviaRouter.post('trivia', async (c: Context) => {
   const new_trivia = await c.req.json();
+
+  const token: string = c.req.headers.get('X-API-KEY') || '';
+
+  if (!token !== c.env.TOKEN) {
+    return c.json(
+      {
+        ok: false,
+        message: 'Invalid token',
+      },
+      401
+    );
+  }
 
   const db = drizzle(c.env.DB);
   const db_insert = await db.insert(schema.trivia).values({
     question: new_trivia.question,
     answer: new_trivia.answer,
-  })
+  });
   if (db_insert) {
     return c.json(
       {
@@ -65,5 +76,4 @@ triviaRouter.post('trivia', bearerAuth({ token }), async (c: Context) => {
       200
     );
   }
-
 });

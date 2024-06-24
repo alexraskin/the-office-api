@@ -1,4 +1,4 @@
-import { D1Database } from "@cloudflare/workers-types";
+import { D1Database } from '@cloudflare/workers-types';
 
 export type Bindings = {
   DATABASE: D1Database;
@@ -37,7 +37,7 @@ export interface IOfficeExtras {
 export interface IOfficeTriva {
   id: number;
   question: string;
-  answer: string
+  answer: string;
 }
 
 export interface IErrorResponse {
