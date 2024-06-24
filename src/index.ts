@@ -1,8 +1,8 @@
-import { Hono, Context } from 'hono';
-import { serveStatic } from 'hono/cloudflare-workers'
+import { Hono } from 'hono';
+import { serveStatic } from 'hono/cloudflare-workers';
 import { prettyJSON } from 'hono/pretty-json';
 import { cors } from 'hono/cors';
-import { logger } from 'hono/logger'
+import { logger } from 'hono/logger';
 import { Bindings } from './types';
 
 import { quoteRouter } from './routes/quotes';
@@ -16,12 +16,12 @@ app.use('*', logger());
 app.use('*', prettyJSON());
 app.use('*', cors());
 
-app.route("/", quoteRouter)
-app.route("/", triviaRouter)
-app.route("/", extrasRouter)
-app.route("/", seasonRouter)
+app.route('/', quoteRouter);
+app.route('/', triviaRouter);
+app.route('/', extrasRouter);
+app.route('/', seasonRouter);
 
-app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }))
+app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }));
 
 app.use('/', serveStatic({ path: './' }));
 
